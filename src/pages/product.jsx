@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { ApplicationContext } from "../components/Layout";
 
 export default function Product() {
     const params = useParams();
     const [product, setProduct] = useState(null);
 
+    const { basket, setBasket } = useContext(ApplicationContext);
 
     useEffect(() => {
         fetch("https://dummyjson.com/product/" + params.id)
@@ -39,7 +41,7 @@ export default function Product() {
                         <div className="col-lg-8">
                             <div className="left-images">
                                 {product.images.map((image) => (
-                                    <img src={image} alt="Product title" />
+                                    <img key={image.id} src={image} alt="Product title" />
                                 ))}
                             </div>
                         </div>
@@ -100,7 +102,7 @@ export default function Product() {
                                 <div className="total">
                                     <h4>Total: $210.00</h4>
                                     <div className="main-border-button">
-                                        <Link to="#">Add To Cart</Link>
+                                        <Link key={'singleprodlink_' + product.id} to="#" onClick={() => setBasket([...basket, product])}>Add To Cart</Link>
                                     </div>
                                 </div>
                             </div>

@@ -1,6 +1,10 @@
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { ApplicationContext } from './Layout';
 
 export default function Header() {
+    const { basket } = useContext(ApplicationContext);
+
     return (
         <header className="header-area header-sticky">
             <div className="container">
@@ -14,7 +18,12 @@ export default function Header() {
                             {/* ***** Logo End ***** */}
                             {/* ***** Menu Start ***** */}
                             <ul className="nav">
-                                <li className="scroll-to-section"><Link to="/" className="active">Нүүр</Link></li>
+                                <li className="scroll-to-section">
+                                    <Link key={'homeButtonfgfjkeg'} to="/" className="active">Нүүр</Link>
+                                </li>
+                                <li className="scroll-to-section">
+                                    <Link key={'addToCardButtondjhceds'} to="/shopping-card" className="active">Сагс: {basket.length}</Link>
+                                </li>
                             </ul>
                             <Link className="menu-trigger">
                                 <span>Menu</span>
