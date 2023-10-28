@@ -10,17 +10,19 @@ function Product(props) {
           <div className="hover-content">
             <ul>
               <li>
-                <a href="single-product.html">
-                  <Link to={'/product/' + product.id}>
-                    <i className="fa fa-eye" />
-                  </Link>
-                </a>
+                <Link to={'/product/' + product.id}>
+                  <i className="fa fa-eye" />
+                </Link>
               </li>
               <li>
-                <a href="single-product.html"><i className="fa fa-star" /></a>
+                <Link to={'/product/:id'}>
+                  <i className="fa fa-star" />
+                </Link>
               </li>
               <li>
-                <a href="single-product.html"><i className="fa fa-shopping-cart" /></a>
+                <Link to={'/product/:id'}>
+                  <i className="fa fa-shopping-cart" />
+                </Link>
               </li>
             </ul>
           </div>
