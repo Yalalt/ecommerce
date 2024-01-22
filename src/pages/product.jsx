@@ -1,23 +1,16 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ApplicationContext } from "../components/Layout";
+import useData from "../hooks/useData";
 
 export default function Product() {
     const params = useParams();
-    const [product, setProduct] = useState(null);
+    const { addToBasket } = useContext(ApplicationContext);
 
-    const { basket, setBasket } = useContext(ApplicationContext);
+    const { data: product, loading } = useData("https://dummyjson.com/product/" + params.id);
 
-    useEffect(() => {
-        fetch("https://dummyjson.com/product/" + params.id)
-            .then((res) => res.json())
-            .then((data) => {
-                setProduct(data);
-            });
-    }, []);
-
-    if (!product) {
-        return <div>...</div>;
+    if (loading) {
+        return <div>Loading...</div>;
     }
 
     return (
@@ -40,8 +33,8 @@ export default function Product() {
                     <div className="row">
                         <div className="col-lg-8">
                             <div className="left-images">
-                                {product.images.map((image) => (
-                                    <img key={image.id} src={image} alt="Product title" />
+                                {product.images.map((image, index) => (
+                                    <img key={index} src={image} alt="Product title" />
                                 ))}
                             </div>
                         </div>
@@ -102,7 +95,7 @@ export default function Product() {
                                 <div className="total">
                                     <h4>Total: $210.00</h4>
                                     <div className="main-border-button">
-                                        <Link key={'singleprodlink_' + product.id} to="#" onClick={() => setBasket([...basket, product])}>Add To Cart</Link>
+                                        <Link key={'singleprodlink_' + product.id} to="#" onClick={() => addToBasket(product)}>Add To Cart</Link>
                                     </div>
                                 </div>
                             </div>

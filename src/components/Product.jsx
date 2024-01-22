@@ -1,7 +1,14 @@
 import { Link } from 'react-router-dom';
+import { ApplicationContext } from './Layout';
+import { useContext } from 'react';
 
-function Product(props) {
+export default function Product(props) {
   const product = props.product;
+  const { addToBasket } = useContext(ApplicationContext);
+
+  if(!product) {
+    return <div>Ачаалж...</div>;
+  }
 
   return (
     <div className="col-lg-4">
@@ -15,12 +22,7 @@ function Product(props) {
                 </Link>
               </li>
               <li>
-                <Link to={'/product/:id'}>
-                  <i className="fa fa-star" />
-                </Link>
-              </li>
-              <li>
-                <Link to={'/product/:id'}>
+                <Link onClick={() => addToBasket(product)}>
                   <i className="fa fa-shopping-cart" />
                 </Link>
               </li>
@@ -43,4 +45,3 @@ function Product(props) {
     </div>
   );
 }
-export default Product;
