@@ -3,22 +3,18 @@ import '../assets/css/font-awesome.css';
 import '../assets/css/templatemo-hexashop.css';
 import '../assets/css/owl-carousel.css';
 import '../assets/css/lightbox.css';
-import { useEffect, useState } from 'react';
 import Product from '../components/Product.jsx';
 import { Link } from 'react-router-dom';
+import useData from '../hooks/useData.jsx';
 
-function Index() {
-  const [products, setProducts] = useState([]);
-
-
-  useEffect(() => {
-    fetch("https://dummyjson.com/products?limit=9")
-      .then((res) => res.json())
-      .then((data) => {
-        setProducts(data.products);
-      });
-  }, []);
-
+function App() {
+  const { data, loading } = useData("https://dummyjson.com/products?limit=9", { products: [] });
+  
+  if (loading) {
+    return <div>Ачаалж...</div>
+  }
+  const products = data.products;
+    
   return (
     <>
       <div className="page-heading" id="top">
@@ -26,8 +22,8 @@ function Index() {
           <div className="row">
             <div className="col-lg-12">
               <div className="inner-content">
-                <h2>Check Our Products</h2>
-                <span>Awesome &amp; Creative HTML CSS layout by TemplateMo</span>
+                <h2>Шинэ бүтээгдэхүүн ирлээ</h2>
+                <span>2024 оны Шинэ загварын цахилгаан бараанууд</span>
               </div>
             </div>
           </div>
@@ -39,8 +35,8 @@ function Index() {
           <div className="row">
             <div className="col-lg-12">
               <div className="section-heading">
-                <h2>Our Latest Products</h2>
-                <span>Check out all of our products.</span>
+                <h2>Шинэ бүтээгдэхүүнүүд</h2>
+                <span>Сар шинийн урамшуулалтай шинэ бүтээгдэхүүнүүд.</span>
               </div>
             </div>
           </div>
@@ -56,10 +52,10 @@ function Index() {
             <div className="col-lg-12">
               <div className="pagination">
                 <ul>
-                  <li>
+                  <li className="active">
                     <Link to="#">1</Link>
                   </li>
-                  <li className="active">
+                  <li>
                     <Link to="#">2</Link>
                   </li>
                   <li>
@@ -82,4 +78,4 @@ function Index() {
   )
 }
 
-export default Index;
+export default App;
