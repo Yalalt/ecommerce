@@ -1730,9 +1730,10 @@ Single Product Page
 }
 
 #product .left-images img {
-  width: 100%;
+  width: 70%;
   overflow: hidden;
   margin-bottom: 30px;
+  
 }
 
 #product .right-content {
